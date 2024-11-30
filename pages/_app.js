@@ -1,12 +1,25 @@
-import '../styles/globals.css'
-import { ThemeProvider } from 'next-themes'
+import { useEffect } from 'react';
 
-function MyApp({ Component, pageProps }) {
-    return(
-        <ThemeProvider attribute="class">
-            <Component {...pageProps} />
-        </ThemeProvider>
-    );
+function ErrorBoundary({ children }) {
+    useEffect(() => {
+        const handleError = (error) => {
+            console.error('Client-side error:', error);
+        };
+
+        window.addEventListener('error', handleError);
+
+        return () => {
+            window.removeEventListener('error', handleError);
+        };
+    }, []);
+
+    return <>{children}</>;
 }
 
-export default MyApp
+export default function MyApp({ Component, pageProps }) {
+    return (
+        <ErrorBoundary>
+            <Component {...pageProps} />
+        </ErrorBoundary>
+    );
+}
