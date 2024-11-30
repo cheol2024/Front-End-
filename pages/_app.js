@@ -1,25 +1,19 @@
-import { useEffect } from 'react';
+import React from 'react';
 
-function ErrorBoundary({ children }) {
-    useEffect(() => {
-        const handleError = (error) => {
-            console.error('Client-side error:', error);
+export default function MyApp({ Component, pageProps }) {
+    React.useEffect(() => {
+        const observerErrorHandler = (e) => {
+            if (e.message === 'ResizeObserver loop completed with undelivered notifications.') {
+                e.stopImmediatePropagation();
+            }
         };
 
-        window.addEventListener('error', handleError);
+        window.addEventListener('error', observerErrorHandler);
 
         return () => {
-            window.removeEventListener('error', handleError);
+            window.removeEventListener('error', observerErrorHandler);
         };
     }, []);
 
-    return <>{children}</>;
-}
-
-export default function MyApp({ Component, pageProps }) {
-    return (
-        <ErrorBoundary>
-            <Component {...pageProps} />
-        </ErrorBoundary>
-    );
+    return <Component {...pageProps} />;
 }

@@ -1,20 +1,29 @@
-import dynamic from 'next/dynamic';
-import { useEffect } from 'react';
+import React from 'react';
+import Lottie from 'react-lottie-player';
+import lottieJson from '/public/animation.json';
 
-const Lottie = dynamic(() => import('lottie-web'), { ssr: false });
+export default function Animation() {
+    // `ResizeObserver` 오류를 무시
+    React.useEffect(() => {
+        const observerErrorHandler = (e) => {
+            if (e.message === 'ResizeObserver loop completed with undelivered notifications.') {
+                e.stopImmediatePropagation();
+            }
+        };
 
-export default function AnimationComponent() {
-    useEffect(() => {
-        const animation = Lottie.loadAnimation({
-            container: document.getElementById('lottie-container'),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: '/animation.json', // 애니메이션 JSON 경로
-        });
+        window.addEventListener('error', observerErrorHandler);
 
-        return () => animation.destroy(); // cleanup
+        return () => {
+            window.removeEventListener('error', observerErrorHandler);
+        };
     }, []);
 
-    return <div id="lottie-container" style={{ width: 400, height: 400 }} />;
+    return (
+        <Lottie
+            loop
+            animationData={lottieJson}
+            play
+            style={{ width: '100%', height: '100%' }}
+        />
+    );
 }
