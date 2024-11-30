@@ -2,8 +2,7 @@ import Image from 'next/image';
 
 export default function ProjectItem({ data }) {
     const title =
-        data.properties?.['이름\\n']?.title?.[0]?.plain_text || '제목 없음';
-    const youtube = data.properties?.Youtube?.url || '유튜브 주소 없음';
+        data.properties?.['이름\\n']?.title?.[0]?.plain_text || '제목 없음';    
 
     const github = data.properties?.Github?.url || '깃허브 주소 없음';
     const description =
@@ -45,9 +44,7 @@ export default function ProjectItem({ data }) {
             <div className="p-4 flex flex-col">
                 <h1 className="text-2xl font-bold">{title}</h1>
                 <h3 className="mt-4 text-xl">{description}</h3>
-                <a href={github}>깃허브 바로가기</a>
-
-                <a href={youtube}>유튜브 시연영상 보러가기</a>
+                <a href={github}>깃허브 바로가기</a>            
 
                 <p className="my-1">
                     작업기간 : {start} ~ {end} ({calculatedPeriod(start, end)})
