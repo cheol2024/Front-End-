@@ -13,8 +13,8 @@ export default function Header() {
                             <Image
                                 src="/inhatc.png" // public 디렉토리 기준 경로
                                 alt="Inhatc Logo"
-                                width={40} // 이미지 너비
-                                height={40} // 이미지 높이
+                                width={70} // 이미지 너비
+                                height={70} // 이미지 높이
                                 className="rounded-full" // 이미지 둥글게 처리 (원 형태)
                             />
                             <span className="ml-3 text-xl">202244034 한희철</span>
