@@ -3,8 +3,6 @@ import Image from 'next/image'
 import Layout from '../components/layout';
 import Icon from '../components/home/icon';
 import Animation from '../components/home/animation';
-import Animation from '../components/home/animation';
-
 
 export default function Home() {
   return (

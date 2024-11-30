@@ -1,19 +1,12 @@
-import React from 'react';
+import '../styles/globals.css'
+import { ThemeProvider } from 'next-themes'
 
-export default function MyApp({ Component, pageProps }) {
-    React.useEffect(() => {
-        const observerErrorHandler = (e) => {
-            if (e.message === 'ResizeObserver loop completed with undelivered notifications.') {
-                e.stopImmediatePropagation();
-            }
-        };
-
-        window.addEventListener('error', observerErrorHandler);
-
-        return () => {
-            window.removeEventListener('error', observerErrorHandler);
-        };
-    }, []);
-
-    return <Component {...pageProps} />;
+function MyApp({ Component, pageProps }) {
+    return(
+        <ThemeProvider attribute="class">
+            <Component {...pageProps} />
+        </ThemeProvider>
+    );
 }
+
+export default MyApp
