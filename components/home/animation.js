@@ -1,15 +1,20 @@
-import React from 'react'
-import Lottie from 'react-lottie-player'
+import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 
-import lottieJson from '/public/animation.json'
+const Lottie = dynamic(() => import('lottie-web'), { ssr: false });
 
-export default function Animation() {
-  return (
-    <Lottie
-      loop
-      animationData={lottieJson}
-      play
-      style={{ width: `100%`, height: `100%` }}
-    />
-  )
+export default function AnimationComponent() {
+    useEffect(() => {
+        const animation = Lottie.loadAnimation({
+            container: document.getElementById('lottie-container'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '/animation.json', // 애니메이션 JSON 경로
+        });
+
+        return () => animation.destroy(); // cleanup
+    }, []);
+
+    return <div id="lottie-container" style={{ width: 400, height: 400 }} />;
 }
